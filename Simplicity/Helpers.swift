@@ -65,7 +65,7 @@ extension URL {
         return result
     }
     
-    private func dictionaryFromFormEncodedString(_ input: String?) -> [String: String] {
+    fileprivate func dictionaryFromFormEncodedString(_ input: String?) -> [String: String] {
         var result = [String: String]()
         
         guard let input = input else {

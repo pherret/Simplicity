@@ -12,9 +12,9 @@ import Foundation
  An error produced by a LoginProvider on redirecting back to the app. Error 
  domain is "Simplicity"
  */
-public class LoginError: NSError {
+open class LoginError: NSError {
     /// An error that should never happen. If seen, please open a GitHub issue.
-    public static let InternalSDKError = LoginError(code: 0, description: "Internal SDK Error")
+    open static let InternalSDKError = LoginError(code: 0, description: "Internal SDK Error")
     
     /**
      Initializer for LoginError
@@ -25,7 +25,7 @@ public class LoginError: NSError {
      */
     public init(code: Int, description: String) {
         var userInfo = [String: AnyObject]()
-        userInfo[NSLocalizedDescriptionKey] = description
+        userInfo[NSLocalizedDescriptionKey] = description as AnyObject
         
         super.init(domain: "Simplicity", code: code, userInfo: userInfo)
     }

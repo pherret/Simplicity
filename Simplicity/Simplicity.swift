@@ -10,15 +10,15 @@ import UIKit
 import SafariServices
 
 /// Callback handler after an external login completes.
-public typealias ExternalLoginCallback = (accessToken: String?, error: NSError?) -> Void
+public typealias ExternalLoginCallback = (_ accessToken: String?, _ error: NSError?) -> Void
 
 /** 
  Simplicity is a framework for authenticating with external providers on iOS.
  */
 public final class Simplicity {
-    private static var currentLoginProvider: LoginProvider?
-    private static var callback: ExternalLoginCallback?
-    private static var safari: UIViewController?
+    fileprivate static var currentLoginProvider: LoginProvider?
+    fileprivate static var callback: ExternalLoginCallback?
+    fileprivate static var safari: UIViewController?
     
     /**
      Begin the login flow by redirecting to the LoginProvider's website.
@@ -51,7 +51,7 @@ public final class Simplicity {
         return self.application(application, openURL: url, options: [String: AnyObject]())
     }
     
-    private static func presentSafariView(_ url: URL) {
+    fileprivate static func presentSafariView(_ url: URL) {
         if #available(iOS 9, *) {
             safari = SFSafariViewController(url: url)
             UIApplication.shared.delegate?.window??.rootViewController?.present(safari!, animated: true, completion: nil)

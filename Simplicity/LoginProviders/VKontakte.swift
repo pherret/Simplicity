@@ -26,7 +26,7 @@
  ```
  */
 
-public class VKontakte: OAuth2 {
+open class VKontakte: OAuth2 {
 
     public init() {
         guard let urlScheme = Helpers.registeredURLSchemes(filter: {$0.hasPrefix("vk")}).first,

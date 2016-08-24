@@ -17,7 +17,7 @@ import Foundation
  it's a security concern to leave it in your app as it can be sniffed and used 
  for malicious purposes.
  */
-public class OAuth2: LoginProvider {
+open class OAuth2: LoginProvider {
     /// A set of OAuth 2 Scopes to request from the login provider.
     public final var scopes = Set<String>()
     
@@ -45,7 +45,7 @@ public class OAuth2: LoginProvider {
      An array with query string parameters for the authorization URL.
      Override this to pass custom data to the OAuth provider. 
      */
-    public var authorizationURLParameters: [String: String?] {
+    open var authorizationURLParameters: [String: String?] {
         guard grantType != .Custom else {
             preconditionFailure("Custom Grant Type Not Supported")
         }
@@ -57,7 +57,7 @@ public class OAuth2: LoginProvider {
     }
     
     /// The authorization URL to start the OAuth flow. 
-    public var authorizationURL: URL {
+    open var authorizationURL: URL {
         guard grantType != .Custom else {
             preconditionFailure("Custom Grant Type Not Supported")
         }
@@ -78,7 +78,7 @@ public class OAuth2: LoginProvider {
      - url: The OAuth redirect URL
      - callback: A callback that returns with an access token or NSError.
      */
-    public func linkHandler(_ url: URL, callback: ExternalLoginCallback) {
+    open func linkHandler(_ url: URL, callback: ExternalLoginCallback) {
         switch grantType {
         case .AuthorizationCode:
             preconditionFailure("Authorization Code Grant Type Not Supported")
@@ -91,14 +91,14 @@ public class OAuth2: LoginProvider {
                  for errors, so will check both.
                  */
                 if let error = OAuth2Error.error(url.fragmentAndQueryDictionary) {
-                    callback(accessToken: nil, error: error)
+                    callback(nil, error)
                 } else {
-                    callback(accessToken: nil, error: LoginError.InternalSDKError)
+                    callback(nil, LoginError.InternalSDKError)
                 }
                 return
             }
             
-            callback(accessToken: accessToken, error: nil)
+            callback(accessToken, nil)
         case .Custom:
             preconditionFailure("Custom Grant Type Not Supported")
         }
